@@ -460,7 +460,17 @@ namespace Maneubo
     StopwatchForm stopwatch;
     string fileName;
     TimeSpan lastTimeAdvance;
-    int saveTimeKey, toggleStopwatchKey;
+
+        private void miTDC_Click(object sender, EventArgs e)
+        {
+            UnitShape reference = board.ReferenceShape as UnitShape, selected = board.SelectedShape as UnitShape;
+            using (TDCForm form = new TDCForm(reference, selected, board.UnitSystem, false))
+            {
+                if (form.ShowDialog() == DialogResult.OK && reference != null) board.ApplyTDC(reference, form);
+            }
+        }
+
+        int saveTimeKey, toggleStopwatchKey;
     bool noRepeatSupported;
 
     [DllImport("user32.dll", SetLastError=true)]

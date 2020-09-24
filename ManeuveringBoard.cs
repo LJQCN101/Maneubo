@@ -2060,7 +2060,22 @@ namespace Maneubo
       Invalidate();
     }
 
-    public void Clear()
+        public void ApplyTDC(UnitShape unit, TDCForm form) // TODO: it's ugly to take an InterceptForm, but i'm out of time...
+        {
+            // delete existing waypoints
+            for (int i = unit.Children.Count - 1; i >= 0; i--)
+            {
+                Waypoint waypoint = unit.Children[i] as Waypoint;
+                if (waypoint != null) unit.Children.RemoveAt(i);
+            }
+
+            unit.Direction = form.Course;
+            unit.Speed = form.Speed;
+
+            Invalidate();
+        }
+
+        public void Clear()
     {
       SelectedTool = PointerTool;
       ReferenceShape = null;
